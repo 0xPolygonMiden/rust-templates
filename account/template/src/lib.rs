@@ -9,7 +9,7 @@
 
 // Global allocator to use heap memory in no-std environment
 #[global_allocator]
-static ALLOC: BumpAlloc = miden_sdk::BumpAlloc::new();
+static ALLOC: BumpAlloc = miden::BumpAlloc::new();
 
 // Required for no-std crates
 #[panic_handler]
@@ -17,7 +17,7 @@ fn my_panic(_info: &core::panic::PanicInfo) -> ! {
     loop {}
 }
 
-use miden_sdk::*;
+use miden::*;
 
 struct Account;
 
@@ -32,12 +32,12 @@ impl Account {
     // externally (in this example)
     #[no_mangle]
     fn receive_asset(asset: CoreAsset) {
-        add_asset(asset);
+        miden::account::add_asset(asset);
     }
 
     #[no_mangle]
     fn send_asset(asset: CoreAsset, tag: Tag, note_type: NoteType, recipient: Recipient) {
-        let asset = remove_asset(asset);
-        create_note(asset, tag, note_type, recipient);
+        let asset = miden::account::remove_asset(asset);
+        miden::tx::create_note(asset, tag, note_type, recipient);
     }
 }

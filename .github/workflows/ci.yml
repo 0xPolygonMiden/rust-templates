@@ -24,7 +24,7 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: install
-        args: --git https://github.com/0xPolygonMiden/compiler --branch main cargo-miden
+        args: --git https://github.com/0xPolygonMiden/compiler --branch next cargo-miden
     - name: Run `cargo miden new` command
       run: cargo miden new my-account-proj --template-path .
     - name: Run `cargo miden build` command
